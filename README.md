@@ -16,7 +16,7 @@ PhoNumSpy is an OSINT tool that collects basic information about a phone number,
 - Python 3.8 or newer
 - `pip` and `venv`
 - An internet connection
-- A `websites.txt` file in the working directory, containing one provider domain per line (used by the targeted search)
+- A `websites.txt` file in the working directory, containing one provider domain per line (used by the targeted search). The file is included in the repository.
 
 ## Installation
 
@@ -60,7 +60,7 @@ When the scan finishes, the results are saved in the current directory as `<numb
 
 ## Known Issues
 
-- The script reads `websites.txt`, but this file is not included in the repository. Create it with one provider domain per line before running a targeted search.
+- Targeted searches use the providers listed in `websites.txt`. Review this file and add or remove providers as needed.
 
 ## License
 
