@@ -60,10 +60,7 @@ When the scan finishes, the results are saved in the current directory as `<numb
 
 ## Known Issues
 
-- `PhoNumSpy.py` contains `import googlesearch-python`, which is not valid Python syntax, so the script fails to start. The import should be `from googlesearch import search` only.
-- `requirements.txt` lists `time`, which is part of the Python standard library and cannot be installed with pip. Remove that line before running `pip install -r requirements.txt`.
-- `requirements.txt` lists both `googlesearch` and `googlesearch-python`. Keep only one of them.
-- The script reads `websites.txt`, but this file is not included in the repository.
+- The script reads `websites.txt`, but this file is not included in the repository. Create it with one provider domain per line before running a targeted search.
 
 ## License
 
