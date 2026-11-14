@@ -81,7 +81,7 @@ fileoutput.write("--------------------------")
 fileoutput.write("\n")
 fileoutput.write("\n")
 footprintsearch = ""
-for footprintsearch in search(lookuptarget, tld="co.in", num=10, stop=10, pause=2):
+for footprintsearch in search(lookuptarget, num_results=10, sleep_interval=2):
     print(f"[+] Result found on: {footprintsearch}")
     fileoutput.write(f"{footprintsearch}\n")
 if footprintsearch == "":
@@ -110,7 +110,7 @@ query = ""
 querysearch = ""
 while i < len(varwebsites):
     query = f"allinurl:{varwebsites[i]} {lookuptarget}"
-    for querysearch in search(query, tld="co.in", num=1, stop=1, pause=0):
+    for querysearch in search(query, num_results=1):
         print(f"[+] Result found: {querysearch}")
         fileoutput.write(f"{querysearch}\n")
     if querysearch == "":
