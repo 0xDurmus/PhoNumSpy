@@ -4,6 +4,15 @@ import pyfiglet
 import time
 from googlesearch import search
 from phonenumbers.phonenumberutil import region_code_for_number
+
+
+def web_search(query, **kwargs):
+    try:
+        return list(search(query, **kwargs))
+    except Exception as error:
+        print(f"[!] Search failed for '{query}': {error}")
+        return []
+
 from phonenumbers import geocoder, carrier, timezone
 import os
 print("\n")
@@ -81,12 +90,18 @@ fileoutput.write("--------------------------")
 fileoutput.write("\n")
 fileoutput.write("\n")
 footprintsearch = ""
-for footprintsearch in search(lookuptarget, num_results=10, sleep_interval=2):
-    print(f"[+] Result found on: {footprintsearch}")
-    fileoutput.write(f"{footprintsearch}\n")
-if footprintsearch == "":
+footprint_queries = list(dict.fromkeys([maininput, lookuptarget]))
+footprint_results = []
+for footprint_query in footprint_queries:
+    for footprintsearch in web_search(footprint_query, num_results=10, sleep_interval=2):
+        if footprintsearch not in footprint_results:
+            footprint_results.append(footprintsearch)
+            print(f"[+] Result found on: {footprintsearch}")
+            fileoutput.write(f"{footprintsearch}\n")
+if not footprint_results:
     print("[-] No web footprint found")
     fileoutput.write("[-] No web footprint found")
+
 print("\n")
 print("--------------------------------------------------")
 print("Targeted Searches on Online Phone Number Providers")
@@ -106,19 +121,18 @@ with open("websites.txt", "r") as extractedwebsites:
     varwebsites = extractedwebsitesread.splitlines()
 
 i = 0
-query = ""
-querysearch = ""
+provider_hits = 0
 while i < len(varwebsites):
     query = f"allinurl:{varwebsites[i]} {lookuptarget}"
-    for querysearch in search(query, num_results=1):
+    for querysearch in web_search(query, num_results=1):
         print(f"[+] Result found: {querysearch}")
         fileoutput.write(f"{querysearch}\n")
-    if querysearch == "":
-        pass
+        provider_hits += 1
     i += 1
-if querysearch == "":
+if provider_hits == 0:
     print("[-] No result found")
     fileoutput.write("[-] No result found")
+
 print("\n")
 print(Ascii_Art)
 print("\n")
